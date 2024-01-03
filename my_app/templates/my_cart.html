@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Shopping Cart</title>
+    <style>
+        /* CSS for layout - Table */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin: 20px auto;
+            background-color: #fff;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
+
+        img {
+            max-width: 50px;
+            height: auto;
+        }
+
+        button {
+            background-color: black;
+            width: 20%;
+            height: 60px;
+            margin-top: 20px;
+            font-size: 20px;
+            margin: 20px auto;
+            display: block;
+            color: white;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        /* Add styles for the cart container */
+        .cart {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: #fff;
+            border: 2px solid #333;
+            z-index: 999;
+        }
+
+        /* Add styles for the close button in the cart */
+        .closeCart {
+            cursor: pointer;
+            color: #333;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        /* Apply styles to the container */
+        .total_price_row_container {
+            display: flex;
+            justify-content: space-between;
+            border: 1px solid #ccc;
+            padding: 10px 0px 10px 0px;
+            margin: 0 auto;
+            width: 80%;
+        }
+
+        /* Style the columns */
+        .col {
+            flex: 1;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        /* Style the total price column */
+        .total_price_row_container .col:last-child {
+            font-weight: bold;
+            {#color: #007bff; /* You can use your preferred color */#}
+            color: black;
+        }
+
+        .total_price_row_container{
+            margin-bottom: 10px;
+        }
+
+
+    </style>
+
+</head>
+
+<body>
+<h1>Your Shopping Cart</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <!-- Add more table headers if needed -->
+    </tr>
+    </thead>
+    <tbody>
+    {% for product_id, details in cart.items %}
+        <tr>
+            <td><img src="{{ details.image }}" alt="{{ details.name }}"></td>
+            <td>{{ details.name }}</td>
+            <td>₹ {{ details.price }}</td>
+            <td>{{ details.quantity }}</td>
+            <!-- Add more table cells for additional details -->
+        </tr>
+    {% endfor %}
+
+    </tbody>
+</table>
+<!-- Button for placing the order -->
+{% comment %}
+    <button class="viewCartButton" onclick="displayCart()">View Cart</button> {% endcomment %}
+
+<!-- Cart container -->
+<div class="cart">
+    <h2>Your Shopping Cart</h2>
+    <!-- ... other cart content ... -->
+
+    <!-- Close button for the cart -->
+    <span class="closeCart" onclick="closeCart()">Close</span>
+</div>
+
+<!-- Button for placing the order -->
+<div class="total_price_row_container">
+    <div class="col">
+        Total quantity :
+
+    </div>
+    <div class="col">
+
+        {{ total_quantity }}
+
+
+    </div>
+
+
+</div>
+
+<div class="total_price_row_container">
+    <div class="col">
+        Total price :
+
+    </div>
+    <div class="col">
+
+      ₹ {{ total_price }}
+
+
+    </div>
+
+
+</div>
+<button onclick="window.location.replace('{% url 'home' %}')">Place Your Order</button>
+
+<script>
+    function placeOrder() {
+        // You can add JavaScript logic here for handling the order placement
+        alert("Order placed successfully!"); // For example, show an alert
+    }
+
+    //new
+    {% comment %}
+        function removeItem(productId) {
+            // Assuming you have a global 'cart' object, update it to remove the item
+            if (cart && cart.items && cart.items.hasOwnProperty(productId)) {
+                delete cart.items[productId];
+                // Update the cart display by refreshing the page (you can replace this with your actual logic)
+                location.reload();
+            }
+        }
+
+        // Function to update the cart display (replace this with your actual update logic)
+        function updateCartDisplay() {
+            // You can update the cart display based on the current 'cart' object
+            alert("Item removed successfully!");
+            // Add your logic to refresh the cart display, e.g., by updating the HTML table
+        }
+
+        function displayCart() {
+            const cart = document.querySelector(".cart");
+            cart.style.display = "flex";
+        }
+
+        function closeCart() {
+            const cart = document.querySelector(".cart");
+            cart.style.display = "none";
+        } {% endcomment %}
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,87 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<!-- Coding by CodingLab | www.codinglabweb.com-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Responsive Login and Signup Form </title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../static/css/login-style.css">
+    <!-- Boxicons CSS -->
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+</head>
+<body>
+
+<section class="container forms">
+    <div class="form login">
+        <div class="form-content">
+            <header>Signup</header>
+            <div class="align-center" style="text-align: center">{{ error_message }}</div>
+            <form action="/signup/" method="post">
+                {% csrf_token %}
+
+
+                 <div class="field input-field">
+                    <input type="text" placeholder="Full name" class="input" name="name">
+                </div>
+
+                <div class="field input-field">
+                    <input type="email" placeholder="Email" class="input" name="email">
+                </div>
+
+
+                 <div class="field input-field">
+                    <input type="text" placeholder="Mobile Number" class="input" name="mobile">
+                </div>
+
+
+
+
+
+
+
+                <div class="field input-field">
+                    <input type="password" placeholder="Password" class="password" name="password" id="password_input">
+                    <i class='bx bx-hide eye-icon' id="password_show"></i>
+                </div>
+
+                <div class="form-link">
+                    <a href="#" class="forgot-pass">Forgot password?</a>
+                </div>
+
+                <div class="field button-field">
+                    <button type="submit">Signup</button>
+                </div>
+            </form>
+
+            <div class="form-link">
+                <span> Already have an account? <a href="{% url 'login' %}" class="link signup-link">Login</a></span>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+
+<!-- JavaScript -->
+<script src="js/script.js"></script>
+<script>
+    $("#password_show").click((event) => {
+        $(event.target).toggleClass("bx-hide bx-show");
+        const passwordInput = $("#password_input");
+        if (passwordInput.attr('type') === 'password') {
+            passwordInput.attr('type', 'text');
+        } else {
+            passwordInput.attr('type', 'password');
+        }
+    })
+</script>
+</body>
+</html>
